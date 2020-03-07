@@ -6,13 +6,18 @@
    * [新建 Maven 项目](#TOC-新建-Maven-项目)
    * [检查初始项目目录与文件](#TOC-检查初始项目目录与文件)
    * [添加依赖](#TOC-添加依赖)
+      * [集成 Spring](#TOC-集成-Spring)
+      * [集成 Spring MVC](#TOC-集成-Spring-MVC)
+      * [集成 MyBatis](#TOC-集成-MyBatis)
+      * [Web 相关](#TOC-Web-相关)
+      * [日志](#TOC-日志)
    * [构建文件目录](#TOC-构建文件目录)
+   * [编写配置文件](#TOC-编写配置文件)
       * [applicationContext.xml](#TOC-applicationContext.xml)
       * [springmvc-config.xml](#TOC-springmvc-config.xml)
       * [mybatis-config.xml](#TOC-mybatis-config.xml)
       * [web.xml](#TOC-web.xml)
       * [log4j.properties](#TOC-log4j.properties)
-   * [编写配置文件](#TOC-编写配置文件)
 4. [发起 Issue](#TOC-发起-Issue)
 5. [展望](#TOC-展望)
 
@@ -175,185 +180,187 @@
 
 需要在 pom.xml 文件中添加相关依赖
 
-1. 集成 Spring
+#### <a name="TOC-集成-Spring"></a>集成 Spring
 
-    * 管理 Spring 相关依赖版本号
+1. 管理 Spring 相关依赖版本号
+
+```
+<dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-framework-bom</artifactId>
+      <version>4.3.4.RELEASE</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+  </dependencies>
+</dependencyManagement>
+```
+
+2. Spring 上下文，核心依赖
+
+```
+<dependency>
+  <groupId>org.springframework</groupId>
+  <artifactId>spring-context</artifactId>
+</dependency>
+```
+
+3. Spring JDBC
+
+```
+<dependency>
+  <groupId>org.springframework</groupId>
+  <artifactId>spring-jdbc</artifactId>
+</dependency>
+```
+
+4. Spring 事物
+
+```
+<dependency>
+  <groupId>org.springframework</groupId>
+  <artifactId>spring-tx</artifactId>
+</dependency>
+```
+
+5. Spring 面向切面编程
+
+```
+<dependency>
+  <groupId>org.springframework</groupId>
+  <artifactId>spring-aop</artifactId>
+</dependency>
+```
+
+6. Spring AOP 依赖
+
+```
+<dependency>
+  <groupId>org.aspectj</groupId>
+  <artifactId>aspectjweaver</artifactId>
+  <version>1.8.2</version>
+</dependency>
+```
+
+7. Java 事物接口
+
+```
+<dependency>
+  <groupId>javax.transaction</groupId>
+  <artifactId>javax.transaction-api</artifactId>
+  <version>1.2</version>
+</dependency>
+```
+    
+#### <a name="TOC-集成-Spring-MVC"></a>集成 Spring MVC
+
+1. Spring Web 核心
+
+  ```
+  <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-web</artifactId>
+  </dependency>
+  ```
+
+2. Spring MVC
+
+  ```
+  <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-webmvc</artifactId>
+  </dependency>
+  ```
+
+#### <a name="TOC-集成-MyBatis"></a>集成 MyBatis
+
+1. MyBatis
+
+  ```
+  <dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis</artifactId>
+    <version>3.4.1</version>
+  </dependency>
+  ```
+
+2. MyBatis 与 Spring 整合
+
+  ```
+  <dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis-spring</artifactId>
+    <version>1.3.1</version>
+  </dependency>
+  ```
+
+3. MySQL 驱动
+
+  ```
+  <dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>5.1.38</version>
+  </dependency>
+  ```
   
-    ```
-    <dependencyManagement>
-      <dependencies>
-        <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-framework-bom</artifactId>
-          <version>4.3.4.RELEASE</version>
-          <type>pom</type>
-          <scope>import</scope>
-        </dependency>
-      </dependencies>
-    </dependencyManagement>
-    ```
-  
-    * Spring 上下文，核心依赖
+#### <a name="TOC-Web-相关"></a>Web 相关
 
-    ```
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-    </dependency>
-    ```
-    
-    * Spring JDBC
-    
-    ```
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-jdbc</artifactId>
-    </dependency>
-    ```
-    
-    * Spring 事物
-    
-    ```
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-tx</artifactId>
-    </dependency>
-    ```
-    
-    * Spring 面向切面编程
-    
-    ```
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-aop</artifactId>
-    </dependency>
-    ```
-    
-    * Spring AOP 依赖
-    
-    ```
-    <dependency>
-      <groupId>org.aspectj</groupId>
-      <artifactId>aspectjweaver</artifactId>
-      <version>1.8.2</version>
-    </dependency>
-    ```
+1. 支持 Servlet
 
-    * Java 事物接口
-    
-    ```
-    <dependency>
-      <groupId>javax.transaction</groupId>
-      <artifactId>javax.transaction-api</artifactId>
-      <version>1.2</version>
-    </dependency>
-    ```
-    
-2. 集成 Spring MVC
+```
+<dependency>
+  <groupId>javax.servlet</groupId>
+  <artifactId>servlet-api</artifactId>
+  <version>2.5</version>
+  <scope>provided</scope>
+</dependency>
+```
 
-    * Spring Web 核心
-    
-      ```
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-web</artifactId>
-      </dependency>
-      ```
-      
-    * Spring MVC
-    
-      ```
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-webmvc</artifactId>
-      </dependency>
-      ```
+2. 支持 JSP
 
-3. 集成 MyBatis
+```
+<dependency>
+  <groupId>javax.servlet.jsp</groupId>
+  <artifactId>jsp-api</artifactId>
+  <version>2.1</version>
+  <scope>provided</scope>
+</dependency>
+```
 
-    * MyBatis
-    
-      ```
-      <dependency>
-        <groupId>org.mybatis</groupId>
-        <artifactId>mybatis</artifactId>
-        <version>3.4.1</version>
-      </dependency>
-      ```
-      
-    * MyBatis 与 Spring 整合
-    
-      ```
-      <dependency>
-        <groupId>org.mybatis</groupId>
-        <artifactId>mybatis-spring</artifactId>
-        <version>1.3.1</version>
-      </dependency>
-      ```
-     
-    * MySQL 驱动
-    
-      ```
-      <dependency>
-        <groupId>mysql</groupId>
-        <artifactId>mysql-connector-java</artifactId>
-        <version>5.1.38</version>
-      </dependency>
-      ```
-4. Web 相关
-    * 支持 Servlet
-    
-    ```
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-      <version>2.5</version>
-      <scope>provided</scope>
-    </dependency>
-    ```
-    
-    * 支持 JSP
-    
-    ```
-    <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>jsp-api</artifactId>
-      <version>2.1</version>
-      <scope>provided</scope>
-    </dependency>
-    ```
-    
-    * 支持 JSTL
-    
-    ```
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>jstl</artifactId>
-      <version>1.2</version>
-    </dependency>
-    ```
+3. 支持 JSTL
 
-    * JSON
-    
-    ```
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.10.2</version>
-    </dependency>
-    ```
+```
+<dependency>
+  <groupId>javax.servlet</groupId>
+  <artifactId>jstl</artifactId>
+  <version>1.2</version>
+</dependency>
+```
 
-5. 日志
+4. JSON
 
-    * Log4j
-    
-    ```
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.17</version>
-    </dependency>
-    ```
+```
+<dependency>
+  <groupId>com.fasterxml.jackson.core</groupId>
+  <artifactId>jackson-databind</artifactId>
+  <version>2.10.2</version>
+</dependency>
+```
+
+#### <a name="TOC-日志"></a>日志
+
+1. Log4j
+
+```
+<dependency>
+  <groupId>log4j</groupId>
+  <artifactId>log4j</artifactId>
+  <version>1.2.17</version>
+</dependency>
+```
 
 ### <a name="TOC-构建文件目录"></a>构建文件目录
 
