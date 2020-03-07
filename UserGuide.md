@@ -387,12 +387,180 @@
 
 #### <a name="TOC-applicationContext.xml"></a>applicationContext.xml
 
+1. 扫描 Service 的实现类
+
+```
+<context:component-scan base-package="org.example.service.impl"/>
+```
+
+2. 连接数据库
+
+```
+<bean id="dataSource" class="org.apache.ibatis.datasource.pooled.PooledDataSource">
+  <property name="driver" value="com.mysql.jdbc.Driver"/>
+  <property name="url" value="jdbc:mysql://localhost:3306/XXX?characterEncoding=utf-8"/>
+  <property name="username" value="YYY"/>
+  <property name="password" value="ZZZ"/>
+</bean>
+```
+
+3. 配置 MyBatis SqlSessionFactory
+
+```
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+  <property name="configLocation" value="classpath:mybatis-config.xml"/>
+  <property name="dataSource" ref="dataSource"/>
+  <property name="mapperLocations" value="classpath:org/example/mapper/*xml" />
+  <property name="typeAliasesPackage" value="org.example.model"/>
+</bean>
+```
+
+4. 配置 MapperScannerConfigurer
+
+```
+<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+  <property name="addToConfig" value="true"/>
+  <property name="basePackage" value="org.example.mapper"/>
+</bean>
+```
+
+5. 开启基于注解的事务
+
+```
+<aop:aspectj-autoproxy/>
+<aop:config>
+  <aop:pointcut id="appService" expression="execution(* org.example.service..*Service*.*(..))"/>
+  <aop:advisor advice-ref="txAdvice" pointcut-ref="appService"/>
+</aop:config>
+```
+
+6. 配置事物增强
+
+```
+<tx:advice id="txAdvice" transaction-manager="transactionManager">
+  <tx:attributes>
+    <tx:method name="select*" read-only="true"/>
+    <tx:method name="find*" read-only="true"/>
+    <tx:method name="get*" read-only="true"/>
+    <tx:method name="*"/>
+  </tx:attributes>
+</tx:advice>
+```
+
+7. 配置事物管理器
+
+```
+<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+  <property name="dataSource" ref="dataSource"/>
+</bean>
+```
 
 #### <a name="TOC-springmvc-config.xml"></a>springmvc-config.xml
+
+1. 启用 Controller 注解支持
+
+```
+<mvc:annotation-driven />
+```
+
+2. 配置静态资源映射规则
+
+```
+<mvc:resources mapping="/static/**" location="static/"/>
+```
+
+3. 扫描 controller 包下的类
+
+```
+<context:component-scan base-package="org.example.controller"/>
+```
+
+4. 配置视图解析器
+
+```
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+  <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+  <property name="prefix" value="/WEB-INF/jsp/"/>
+  <property name="suffix" value=".jsp"/>
+</bean>
+```
+
 #### <a name="TOC-mybatis-config.xml"></a>mybatis-config.xml
+
+```
+<settings>
+  <setting name="logImpl" value="LOG4J"/>
+  <setting name="cacheEnabled" value="true"/>
+  <setting name="mapUnderscoreToCamelCase" value="true"/>
+  <setting name="aggressiveLazyLoading" value="false"/>
+</settings>
+```
+
 #### <a name="TOC-web.xml"></a>web.xml
+
+1. 启用 Spring
+
+```
+<context-param>
+  <param-name>contextConfigLocation</param-name>
+  <param-value>classpath:applicationContext.xml</param-value>
+</context-param>
+
+<listener>
+  <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+</listener>
+```
+
+2. 使用 Spring MVC 的 Dispatcher Servlet 前端控制器，拦截所有请求
+
+```
+<servlet>
+  <servlet-name>mybatis</servlet-name>
+  <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  <init-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:springmvc-config.xml</param-value>
+  </init-param>
+  <load-on-startup>1</load-on-startup>
+</servlet>
+```
+
+3. 字符编码过滤器，解决 Spring MVC 中文乱码
+
+```
+<filter>
+  <filter-name>SpringEncodingFilter</filter-name>
+  <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+  <init-param>
+    <param-name>encoding</param-name>
+    <param-value>UTF-8</param-value>
+  </init-param>
+  <init-param>
+    <param-name>forceEncoding</param-name>
+    <param-value>true</param-value>
+  </init-param>
+</filter>
+
+<filter-mapping>
+  <filter-name>SpringEncodingFilter</filter-name>
+  <url-pattern>/*</url-pattern>
+</filter-mapping>
+```
+
 #### <a name="TOC-log4j.properties"></a>log4j.properties
 
+```
+log4j.rootLogger=DEBUG, stdout
+
+log4j.logger.org.example=DEBUG
+
+log4j.logger.org.example.mapper=TRACE
+
+### Console output...
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n
+```
 
 ## <a name="TOC-发起-Issue"></a>发起 Issue
 
