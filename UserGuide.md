@@ -339,7 +339,7 @@
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>2.8.11</version>
+      <version>2.10.2</version>
     </dependency>
     ```
 
