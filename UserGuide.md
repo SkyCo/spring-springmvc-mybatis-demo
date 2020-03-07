@@ -352,6 +352,32 @@
 
 ### <a name="TOC-构建文件目录"></a>构建文件目录
 
+1. 新建目录
+
+    * java
+      * src/main/java/org/example/controller
+      * src/main/java/org/example/mapper
+      * src/main/java/org/example/model
+      * src/main/java/org/example/service
+      * src/main/java/org/example/service/impl
+    * resources
+      * src/main/resources/org/example/mapper
+    * webapp
+      * src/webapp/static
+      * src/web/WEB-INF/jsp
+    
+2. 新建配置文件
+
+    * Spring 配置文件：applicationContext.xml
+    * Spring MVC 配置文件：springmvc-config.xml
+    * MyBatis 配置文件：mybatis-config.xml
+    * Log4j 配置文件：log4j.properties
+    
+3. 添加 jQuery 和 Bootstrap
+
+    * src/webapp/static/jquery-x.y.z.min.js
+    * src/webapp/static/bootstrap-x.y.z-dist
+
 ### <a name="TOC-编写配置文件"></a>编写配置文件
 
 ## <a name="TOC-发起-Issue"></a>发起 Issue
