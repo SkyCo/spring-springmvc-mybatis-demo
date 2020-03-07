@@ -515,7 +515,7 @@
 
 ```
 <servlet>
-  <servlet-name>mybatis</servlet-name>
+  <servlet-name>springmvc</servlet-name>
   <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
   <init-param>
     <param-name>contextConfigLocation</param-name>
@@ -523,6 +523,11 @@
   </init-param>
   <load-on-startup>1</load-on-startup>
 </servlet>
+
+<servlet-mapping>
+  <servlet-name>springmvc</servlet-name>
+  <url-pattern>/</url-pattern>
+</servlet-mapping>
 ```
 
 3. 字符编码过滤器，解决 Spring MVC 中文乱码
