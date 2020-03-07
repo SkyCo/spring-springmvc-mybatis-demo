@@ -7,6 +7,11 @@
    * [检查初始项目目录与文件](#TOC-检查初始项目目录与文件)
    * [添加依赖](#TOC-添加依赖)
    * [构建文件目录](#TOC-构建文件目录)
+      * [applicationContext.xml](#TOC-applicationContext.xml)
+      * [springmvc-config.xml](#TOC-springmvc-config.xml)
+      * [mybatis-config.xml](#TOC-mybatis-config.xml)
+      * [web.xml](#TOC-web.xml)
+      * [log4j.properties](#TOC-log4j.properties)
    * [编写配置文件](#TOC-编写配置文件)
 4. [发起 Issue](#TOC-发起-Issue)
 5. [展望](#TOC-展望)
@@ -379,6 +384,15 @@
     * src/webapp/static/bootstrap-x.y.z-dist
 
 ### <a name="TOC-编写配置文件"></a>编写配置文件
+
+#### <a name="TOC-applicationContext.xml"></a>applicationContext.xml
+
+
+#### <a name="TOC-springmvc-config.xml"></a>springmvc-config.xml
+#### <a name="TOC-mybatis-config.xml"></a>mybatis-config.xml
+#### <a name="TOC-web.xml"></a>web.xml
+#### <a name="TOC-log4j.properties"></a>log4j.properties
+
 
 ## <a name="TOC-发起-Issue"></a>发起 Issue
 
