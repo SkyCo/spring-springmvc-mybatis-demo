@@ -4,6 +4,7 @@
 2. [前期准备](#TOC-前期准备)
 3. [开始](#TOC-开始)
    * [新建 Maven 项目](#TOC-新建-Maven-项目)
+   * [检查初始项目目录与文件](#TOC-检查初始项目目录与文件)
    * [添加依赖](#TOC-添加依赖)
    * [构建文件目录](#TOC-构建文件目录)
    * [编写配置文件](#TOC-编写配置文件)
@@ -23,7 +24,147 @@
 
 ## <a name="TOC-开始"></a>开始
 
-### <a name="TOC-新建-Maven-项目"></a>新建 Maven 项目
+### <a name="TOC-新建-Maven-项目"></a>新建 Maven 项目（截图）
+
+1. 打开 IntelliJ IDEA
+2. Create New Project 或 File -> New -> Project...
+3. Maven -> 勾选 "Create from archetype" -> org.apache.maven.archetypes:maven-archetype-webapp -> Next
+4. 起名
+    * Name：`ocean`，填写项目名
+    * Location：项目放在哪
+    * Artifact Coordinates
+        * GroupId：`org.example`，是公司、团体、组织机构等的唯一标识。通常约定以创建这个项目的组织名称的逆向域，如：org.apache 等
+        * ArtifactId：`ocean`，项目的唯一标识，可以理解为项目名，与上面填写的 Name 一致
+        * version: `1.0-SNAPSHOP`，版本，按照默认即可，无需修改
+    * Next
+5. 设置 Maven
+    * Maven home directory：`/usr/local/Cellar/maven/3.6.3_1/libexec`
+        - 如何找到上面的地址（可能仅适用于通过 Homebrew 安装的 Maven）：在终端中输入：`mvn -v` 即可看见
+    * User setting file：`/Users/XXX/.m2/settings.xml`
+        - XXX 是你的用户名，一般在 Macintosh HD/Users/XXX 目录下可以看见，下同
+        - 会自动勾选 Override
+    * Local repository：`/Users/XXX/.m2/repository`
+        - 会自动勾选 Override
+    * Properties：默认即可，无需修改或添加  
+        - 可能会遇到构建 Maven 项目过慢的情况，可以添加如下属性：`archetypeCatalog=internal`
+    * Finish
+6. 进入项目后，右下角会提示：Maven projects need to be imported，勾选 Enable Auto-Import 即可
+7. 完成
+
+### <a name="TOC-检查初始项目目录与文件"></a>检查初始项目目录与文件
+
+* 初始项目目录（截图）
+* 初始项目文件
+    * web.xml
+    
+    ```xml
+    <!DOCTYPE web-app PUBLIC
+    "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+    <web-app>
+      <display-name>Archetype Created Web Application</display-name>
+    </web-app>
+    ```
+    
+    * index.jsp
+    
+    ```jsp
+    <html>
+      <body>
+        <h2>Hello World!</h2>
+      </body>
+    </html>
+    ```
+    
+    * pom.xml
+    
+    ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+      <modelVersion>4.0.0</modelVersion>
+
+      <groupId>org.example</groupId>
+      <artifactId>ocean</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <packaging>war</packaging>
+
+      <name>ocean Maven Webapp</name>
+      <!-- FIXME change it to the project's website -->
+      <url>http://www.example.com</url>
+
+      <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+      </properties>
+
+      <dependencies>
+        <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>4.11</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+
+      <build>
+        <finalName>ocean</finalName>
+        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+          <plugins>
+            <plugin>
+              <artifactId>maven-clean-plugin</artifactId>
+              <version>3.1.0</version>
+            </plugin>
+            <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
+            <plugin>
+              <artifactId>maven-resources-plugin</artifactId>
+              <version>3.0.2</version>
+            </plugin>
+            <plugin>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <version>3.8.0</version>
+            </plugin>
+            <plugin>
+              <artifactId>maven-surefire-plugin</artifactId>
+              <version>2.22.1</version>
+            </plugin>
+            <plugin>
+              <artifactId>maven-war-plugin</artifactId>
+              <version>3.2.2</version>
+            </plugin>
+            <plugin>
+              <artifactId>maven-install-plugin</artifactId>
+              <version>2.5.2</version>
+            </plugin>
+            <plugin>
+              <artifactId>maven-deploy-plugin</artifactId>
+              <version>2.8.2</version>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </project>
+    ```
+   
+* 将初始 web.xml 中文件代码替换为下面的代码
+  
+  ```xml
+  <?xml version="1.0" encoding="UTF-8"?>
+  <web-app xmlns="http://java.sun.com/xml/ns/javaee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="
+              http://java.sun.com/xml/ns/javaee
+              http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+           version="3.0">
+  </web-app>
+  ```
+  
+  此举是为了避免在 web.xml 中添加配置时出现下列异常，详见 [Stack Overflow](https://stackoverflow.com/questions/12472541/the-content-of-element-type-must-match-in-web-xml)
+     
+  > The content of element type "web-app" must match "(icon?,display-name?,description?,distributable?,context-param*,filter*,filter- mapping*,listener*,servlet*,servlet-mapping*,session-config?,mime-mapping*,welcome-file-list?,error-page*,taglib*,resource-env- ref*,resource-ref*,security-constraint*,login-config?,security-role*,env-entry*,ejb-ref*,ejb-local-ref*)".
 
 ### <a name="TOC-添加依赖"></a>添加依赖
 
