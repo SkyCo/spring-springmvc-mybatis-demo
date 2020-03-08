@@ -3,21 +3,21 @@
 1. [概览](#TOC-概览)
 2. [前期准备](#TOC-前期准备)
 3. [开始](#TOC-开始)
-   * [新建 Maven 项目](#TOC-新建-Maven-项目)
-   * [检查初始项目目录与文件](#TOC-检查初始项目目录与文件)
-   * [添加依赖](#TOC-添加依赖)
-      * [集成 Spring](#TOC-集成-Spring)
-      * [集成 Spring MVC](#TOC-集成-Spring-MVC)
-      * [集成 MyBatis](#TOC-集成-MyBatis)
-      * [Web 相关](#TOC-Web-相关)
-      * [日志](#TOC-日志)
-   * [构建文件目录](#TOC-构建文件目录)
-   * [编写配置文件](#TOC-编写配置文件)
-      * [applicationContext.xml](#TOC-applicationContext.xml)
-      * [springmvc-config.xml](#TOC-springmvc-config.xml)
-      * [mybatis-config.xml](#TOC-mybatis-config.xml)
-      * [web.xml](#TOC-web.xml)
-      * [log4j.properties](#TOC-log4j.properties)
+    * [新建 Maven 项目](#TOC-新建-Maven-项目)
+    * [检查初始项目目录与文件](#TOC-检查初始项目目录与文件)
+    * [添加依赖](#TOC-添加依赖)
+        * [集成 Spring](#TOC-集成-Spring)
+        * [集成 Spring MVC](#TOC-集成-Spring-MVC)
+        * [集成 MyBatis](#TOC-集成-MyBatis)
+        * [Web 相关](#TOC-Web-相关)
+        * [日志](#TOC-日志)
+    * [构建文件目录](#TOC-构建文件目录)
+    * [编写配置文件](#TOC-编写配置文件)
+        * [applicationContext.xml](#TOC-applicationContext.xml)
+        * [springmvc-config.xml](#TOC-springmvc-config.xml)
+        * [mybatis-config.xml](#TOC-mybatis-config.xml)
+        * [web.xml](#TOC-web.xml)
+        * [log4j.properties](#TOC-log4j.properties)
 4. [发起 Issue](#TOC-发起-Issue)
 5. [展望](#TOC-展望)
 
@@ -63,8 +63,8 @@
 
 ### <a name="TOC-检查初始项目目录与文件"></a>检查初始项目目录与文件
 
-* 初始项目目录（截图）
-* 初始项目文件
+1. 初始项目目录（截图）
+2. 初始项目文件
     * web.xml
     
     ```xml
@@ -158,23 +158,24 @@
       </build>
     </project>
     ```
-   
-* 将初始 web.xml 中文件代码替换为下面的代码
+
+3. 替换代码
+    * 将初始 web.xml 中文件代码替换为下面的代码
   
-  ```xml
-  <?xml version="1.0" encoding="UTF-8"?>
-  <web-app xmlns="http://java.sun.com/xml/ns/javaee"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="
-              http://java.sun.com/xml/ns/javaee
-              http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-           version="3.0">
-  </web-app>
-  ```
-  
-  此举是为了避免在 web.xml 中添加配置时出现下列异常，详见 [Stack Overflow](https://stackoverflow.com/questions/12472541/the-content-of-element-type-must-match-in-web-xml)
+    ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <web-app xmlns="http://java.sun.com/xml/ns/javaee"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="
+                http://java.sun.com/xml/ns/javaee
+                http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+             version="3.0">
+    </web-app>
+    ```
+
+    此举是为了避免在 web.xml 中添加配置时出现下列异常，详见 [Stack Overflow](https://stackoverflow.com/questions/12472541/the-content-of-element-type-must-match-in-web-xml)
      
-  > The content of element type "web-app" must match "(icon?,display-name?,description?,distributable?,context-param*,filter*,filter- mapping*,listener*,servlet*,servlet-mapping*,session-config?,mime-mapping*,welcome-file-list?,error-page*,taglib*,resource-env- ref*,resource-ref*,security-constraint*,login-config?,security-role*,env-entry*,ejb-ref*,ejb-local-ref*)".
+    > The content of element type "web-app" must match "(icon?,display-name?,description?,distributable?,context-param*,filter*,filter- mapping*,listener*,servlet*,servlet-mapping*,session-config?,mime-mapping*,welcome-file-list?,error-page*,taglib*,resource-env- ref*,resource-ref*,security-constraint*,login-config?,security-role*,env-entry*,ejb-ref*,ejb-local-ref*)".
 
 ### <a name="TOC-添加依赖"></a>添加依赖
 
@@ -182,7 +183,7 @@
 
 #### <a name="TOC-集成-Spring"></a>集成 Spring
 
-1. 管理 Spring 相关依赖版本号
+1. 管理 Spring 相关依赖的版本
 
 将其放置在 `<dependencies />` 后面，`<build />` 之前。
 
@@ -260,53 +261,53 @@
 
 1. Spring Web 核心
 
-  ```
-  <dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-web</artifactId>
-  </dependency>
-  ```
+```
+<dependency>
+  <groupId>org.springframework</groupId>
+  <artifactId>spring-web</artifactId>
+</dependency>
+```
 
 2. Spring MVC
 
-  ```
-  <dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-webmvc</artifactId>
-  </dependency>
-  ```
+```
+<dependency>
+  <groupId>org.springframework</groupId>
+  <artifactId>spring-webmvc</artifactId>
+</dependency>
+```
 
 #### <a name="TOC-集成-MyBatis"></a>集成 MyBatis
 
 1. MyBatis
 
-  ```
-  <dependency>
-    <groupId>org.mybatis</groupId>
-    <artifactId>mybatis</artifactId>
-    <version>3.4.1</version>
-  </dependency>
-  ```
+```
+<dependency>
+  <groupId>org.mybatis</groupId>
+  <artifactId>mybatis</artifactId>
+  <version>3.4.1</version>
+</dependency>
+```
 
 2. MyBatis 与 Spring 整合
 
-  ```
-  <dependency>
-    <groupId>org.mybatis</groupId>
-    <artifactId>mybatis-spring</artifactId>
-    <version>1.3.1</version>
-  </dependency>
-  ```
+```
+<dependency>
+  <groupId>org.mybatis</groupId>
+  <artifactId>mybatis-spring</artifactId>
+  <version>1.3.1</version>
+</dependency>
+```
 
 3. MySQL 驱动
 
-  ```
-  <dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <version>5.1.38</version>
-  </dependency>
-  ```
+```
+<dependency>
+  <groupId>mysql</groupId>
+  <artifactId>mysql-connector-java</artifactId>
+  <version>5.1.38</version>
+</dependency>
+```
   
 #### <a name="TOC-Web-相关"></a>Web 相关
 
@@ -367,18 +368,18 @@
 ### <a name="TOC-构建文件目录"></a>构建文件目录
 
 1. 新建目录
-
+    
     * java
-      * src/main/java/org/example/controller
-      * src/main/java/org/example/mapper
-      * src/main/java/org/example/model
-      * src/main/java/org/example/service
-      * src/main/java/org/example/service/impl
+        * src/main/java/org/example/controller
+        * src/main/java/org/example/mapper
+        * src/main/java/org/example/model
+        * src/main/java/org/example/service
+        * src/main/java/org/example/service/impl
     * resources
-      * src/main/resources/org/example/mapper
+        * src/main/resources/org/example/mapper
     * webapp
-      * src/webapp/static
-      * src/web/WEB-INF/jsp
+        * src/webapp/static
+        * src/web/WEB-INF/jsp
     
 2. 新建配置文件
 
