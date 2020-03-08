@@ -160,7 +160,7 @@
     ```
 
 3. 替换代码
-    * 将初始 web.xml 中文件代码替换为下面的代码
+    * 将初始 web.xml 中，文件代码替换为下面的代码
   
     ```xml
     <?xml version="1.0" encoding="UTF-8"?>
