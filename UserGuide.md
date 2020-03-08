@@ -184,6 +184,8 @@
 
 1. 管理 Spring 相关依赖版本号
 
+将其放置在 `<dependencies />` 后面，`<build />` 之前。
+
 ```
 <dependencyManagement>
   <dependencies>
