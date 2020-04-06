@@ -584,12 +584,8 @@ log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n
 2. 为什么我使用、修改项目后，上传到 GitHub 中，在含有 *.gitignore* 文件的文件夹中的文件无法上传？  
 目前的可行方案是，删除文件夹中的 *gitignore* 文件，即可上传该文件夹内的其他文件。
 
-3. 我想在 JSP 页面使用 Bootstrap 应该怎样引入呢？
-可以看看下面的模版文件 index.jsp  
-
-```
-
-```
+3. 我想在 JSP 页面使用 Bootstrap 应该怎样引入呢？  
+推荐参考本项目的模版文件 [index.jsp](https://github.com/SkyCo/spring-springmvc-mybatis-demo/blob/master/ocean/src/main/webapp/index.jsp)
 
 ## <a name="TOC-发起-Issue"></a>发起 Issue
 
