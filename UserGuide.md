@@ -18,8 +18,9 @@
         * [mybatis-config.xml](#TOC-mybatis-config.xml)
         * [web.xml](#TOC-web.xml)
         * [log4j.properties](#TOC-log4j.properties)
-4. [发起 Issue](#TOC-发起-Issue)
-5. [展望](#TOC-展望)
+4. [Q & A](#TOC-Q-&-A)
+5. [发起 Issue](#TOC-发起-Issue)
+6. [展望](#TOC-展望)
 
 ## <a name="TOC-概览"></a>概览
 
@@ -576,6 +577,12 @@ log4j.appender.stdout=org.apache.log4j.ConsoleAppender
 log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
 log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n
 ```
+## <a name="TOC-Q-&-A"></a>Q & A
+1. 为什么有的文件夹中有 *gitignore* 文件？  
+这样做是为了显示空文件夹。
+
+2. 为什么我使用、修改项目后，上传到 GitHub 中，在含有 *.gitignore* 文件的文件夹中的文件无法上传？  
+目前的可行方案是，删除文件夹中的 *gitignore* 文件，即可上传该文件夹内的其他文件。
 
 ## <a name="TOC-发起-Issue"></a>发起 Issue
 
